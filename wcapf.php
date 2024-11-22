@@ -52,13 +52,12 @@ function wcapf_render_dynamic_category_filter() {
 
     ob_start();
     ?>
-    <form id="wcapf-category-filter" method="get" action="<?php echo esc_url(home_url('/')); ?>">
-        <select name="product_cat" onchange="this.form.submit()">
-            <option value="">Selecciona una categoría</option>
-            
-            <?php foreach ($parent_categories as $parent): ?>
-                <option value="" disabled style="font-weight: bold;"><?php echo esc_html($parent->name); ?></option>
-                
+<form id="wcapf-category-filter" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+    <select name="product_cat" onchange="if(this.value) this.form.submit();">
+        <option value="">Selecciona una categoría</option>
+        
+        <?php foreach ($parent_categories as $parent): ?>
+            <optgroup label="<?php echo esc_html($parent->name); ?>">
                 <?php if (isset($child_categories[$parent->term_id])): ?>
                     <?php foreach ($child_categories[$parent->term_id] as $child): ?>
                         <option value="<?php echo esc_attr($child->slug); ?>" <?php selected(get_query_var('product_cat'), $child->slug); ?>>
@@ -66,9 +65,11 @@ function wcapf_render_dynamic_category_filter() {
                         </option>
                     <?php endforeach; ?>
                 <?php endif; ?>
-            <?php endforeach; ?>
-        </select>
-    </form>
+            </optgroup>
+        <?php endforeach; ?>
+    </select>
+</form>
+
     <?php
     return ob_get_clean();
 }

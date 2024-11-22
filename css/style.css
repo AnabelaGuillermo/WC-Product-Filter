@@ -114,3 +114,18 @@
 }
 
 /*price filter display type list*/
+
+/* Estilo para ocultar el círculo de selección de categorías padres en móviles */
+@media (max-width: 767px) {
+    select optgroup {
+        font-weight: bold; /* Resaltamos las categorías padres como texto */
+        background-color: transparent; /* Sin fondo para que no se vea como opción */
+        color: inherit; /* Usamos el mismo color que las subcategorías */
+    }
+
+    /* Aseguramos que las categorías padres no se vean como opción deshabilitada */
+    select option[disabled] {
+        background-color: transparent; /* Eliminar el fondo de opciones deshabilitadas */
+        color: inherit; /* Mantener el color normal para las opciones deshabilitadas */
+    }
+}
